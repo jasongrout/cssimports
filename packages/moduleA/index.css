@@ -1,0 +1,7 @@
+@import url("~moduleB");
+@import url("~moduleC");
+@import url("~moduleD");
+
+.myboxA {
+  border-width: 2px
+};

@@ -1,0 +1,10 @@
+{
+  "name": "moduleC",
+  "private": true,
+  "version": "1.0.0",
+  "style": "index.css",
+
+  "dependencies": {
+    "moduleD": "^1"
+  }
+}
