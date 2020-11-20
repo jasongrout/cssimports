@@ -14,12 +14,12 @@ Notice that in this example, the CSS from module D is included as many different
 
 The idea here is that:
 
-- each package stands on its own, and should be easy to include in a web application by itself, so each package's CSS file `@import`s its dependency's CSS files
-- We want to leave it up to the user how CSS gets into the browser, so we do not hardcode a css import in each module's Javascript (in this toy example, we've left the js out completely).
+- We want to leave it up to the user how CSS gets into the browser, so we do not hardcode a css import in each module's Javascript (in this toy example, we've left the js out completely). This means that the CSS stays completely separate from the module's javascript files, which means that any dependencies in the CSS must be expressed through `@import` statements.
+- Also, each package stands on its own, and should be easy to include in a web application by itself, so each package's CSS file `@import`s its dependency's CSS files
 
-What we do is basically have a dependency graph between css files that mirrors the dependency graph of the actual packages. An application that wants to include any module just has to get the main CSS file for that module onto the page, and any required dependency CSS will automatically get loaded through the CSS `@import` dependency graph.
+Our system basically sets up a dependency graph between css files using `@import` that mirrors the dependency graph of the actual packages. An application that wants to include any module just has to get the main CSS file for that module onto the page, and any required dependency CSS will automatically get loaded through the CSS `@import` dependency graph.
 
-I think if we instead had each module's main js file include its main CSS file, the webpack module dependency deduplication would do the deduplication we want (e.g., module D's css would be on the page once, since module D's javascript is executed once). However, this would require that the module must be used with a bundler that understands css files, and we'd rather not make that assumption hardcoded in the module.
+Note that if we threw away our first requirement above, and had each module's main js file include its main CSS file, the webpack module dependency deduplication would do the deduplication we want (e.g., module D's css would be on the page once, since module D's javascript is executed once). However, this would require that the module must be used with a bundler that understands css files, and we'd rather not make that assumption hardcoded in the module.
 
 While CSS in general has issues with ordering and the global namespace, in this restricted scenario where we are mimicking the package dependency graph and curating our CSS to not have conflicts, it would be really helpful to have deduplicating.
 
